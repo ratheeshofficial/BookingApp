@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user } = useContext(AuthContext);
   console.log("user", user);
 
-  const name = user.username;
+  const name = user ? user.username : "";
   const capitalize = name.charAt(0).toUpperCase() + name.slice(1);
   return (
     <div className="navbar">

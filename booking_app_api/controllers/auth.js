@@ -39,11 +39,12 @@ export const login = async (req, res) => {
     );
 
     const { password, isAdmin, ...otherDetails } = user._doc;
+    console.log("resaaaaaaaaaaaaaaaa", res);
     // console.log("password", otherDetails);
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
-      .json({ ...otherDetails });
+      .json({ details: { ...otherDetails, isAdmin } });
   } catch (error) {
     res.status(500).json(error);
   }

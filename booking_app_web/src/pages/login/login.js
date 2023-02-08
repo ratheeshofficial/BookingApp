@@ -59,9 +59,9 @@ const Login = () => {
           "http://localhost:8000/api/auth/login",
           values
         );
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
         navigate("/");
-        // console.log("res", res);
+        console.log("res", res);
       } catch (error) {
         dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
       }
