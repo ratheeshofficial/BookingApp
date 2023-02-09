@@ -12,7 +12,6 @@ export const verifytoken = (req, res, next) => {
     // console.log(user);
     if (err) return res.send("Token is not valid");
     req.user = user;
-    console.log("reqqqqqqqqqq", req.user);
     next();
   });
 };
@@ -30,11 +29,11 @@ export const verifyUser = (req, res, next) => {
 export const verifyAdmin = (req, res, next) => {
   // console.log("req", req.body);
   verifytoken(req, res, next, () => {
-    console.log("user", req.user);
-    // if (req.user.isAdmin) {
-    //   next();
-    // } else {
-    //   res.send("You are not authorized");
-    // }
+    // console.log("user", req.user);
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.send("You are not authorized");
+    }
   });
 };

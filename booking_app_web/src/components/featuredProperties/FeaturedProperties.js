@@ -9,7 +9,8 @@ const FeaturedProperties = () => {
 
   const images = [
     "https://gos3.ibcdn.com/85f70e62d50e11eba4c50242ac110002.jpg",
-    "https://gos3.ibcdn.com/85f70e62d50e11eba4c50242ac110003.jpg",
+    "https://gos3.ibcdn.com/85f70e62d50e11eba4c50242ac110002.jpg",
+    "https://gos3.ibcdn.com/85f70e62d50e11eba4c50242ac110002.jpg",
   ];
   return (
     <div className="fp">

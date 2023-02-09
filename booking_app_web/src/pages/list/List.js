@@ -7,9 +7,11 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
+import { Text } from "@chakra-ui/react";
 
 const List = () => {
   const location = useLocation();
+  console.log("location", location);
   const [destination, setDestination] = useState(location.state.destination);
   const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
@@ -22,6 +24,7 @@ const List = () => {
       max || 999
     }`
   );
+  console.log("data", data);
 
   const handleSearch = () => {
     reFetch();
@@ -116,9 +119,17 @@ const List = () => {
               "loading"
             ) : (
               <>
-                {data.map((item) => (
-                  <SearchItem item={item} key={item._id} />
-                ))}
+                {/* {destination === location.state.destination
+                  ? "Matches"
+                  : "No Matches"} */}
+
+                {data.length > 0 ? (
+                  data.map((item, key) => (
+                    <SearchItem item={item} key={item._id} />
+                  ))
+                ) : (
+                  <Text>No City Matches</Text>
+                )}
               </>
             )}
           </div>

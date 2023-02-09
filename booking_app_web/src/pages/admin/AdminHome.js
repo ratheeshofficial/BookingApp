@@ -30,11 +30,7 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
 import { AuthContext } from "../../context/AuthContext";
-// import { Link as ReachLink } from "react-router-dom";
-// import { Link, Link as ReachLink } from "@reach/router";
 import { Outlet, Link } from "react-router-dom";
 
 const LinkItems = [
