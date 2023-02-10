@@ -49,3 +49,5 @@ app.listen(8000, () => {
   connect();
   console.log("server started in 8000 ...");
 });
+
+mongoose.set("strictQuery", false); // warning error message it will not show

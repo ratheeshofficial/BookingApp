@@ -7,18 +7,28 @@ export const register = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const newUser = new User({
-      username: req.body.username,
+    let isEmailExist = await User.findOne({
       email: req.body.email,
-      password: hash,
     });
+    console.log("isEmailExist", isEmailExist);
 
-    await newUser.save();
-    res.status(200).json(newUser);
+    if (isEmailExist) {
+      res.status(500).json({ success: false, message: "email already exist" });
+    } else {
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hash,
+      });
+
+      await newUser.save();
+      res.status(200).json({ success: true, newUser });
+    }
   } catch (error) {
     res.status(500).json(error);
   }
-  res.send("Hello this is register endpoint");
+
+  // res.send("Hello this is register endpoint");
 };
 
 export const login = async (req, res) => {

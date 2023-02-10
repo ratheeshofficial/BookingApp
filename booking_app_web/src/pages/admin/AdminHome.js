@@ -36,9 +36,8 @@ import { Outlet, Link } from "react-router-dom";
 const LinkItems = [
   { name: "Home", link: "/", icon: FiHome },
   { name: "User", link: "/users", icon: FiTrendingUp },
-  // { name: "Explore", icon: FiCompass },
-  // { name: "Favourites", icon: FiStar },
-  // { name: "Settings", icon: FiSettings },
+  { name: "Hotel", link: "/hotels", icon: FiCompass },
+  { name: "Room", link: "/rooms", icon: FiStar },
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -91,9 +90,6 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link, key) => (
-        // <NavItem key={link.name} icon={link.icon} to={link.link}>
-        //   {link.name}
-        // </NavItem>
         <>
           <NavItem key={link.name} icon={link.icon} to={link.link}>
             {link.name}

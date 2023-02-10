@@ -170,11 +170,11 @@ const Login = () => {
                   <Link
                     pl="2"
                     as={RouterLink}
-                    to="/signup"
+                    to="/register"
                     color="#2c5282"
                     textDecoration="underline"
                   >
-                    Signup
+                    Register
                   </Link>
                 </Box>
                 <Box textAlign="center">
