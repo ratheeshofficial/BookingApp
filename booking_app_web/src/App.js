@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import AdminHome from "./pages/admin/AdminHome";
+import HotelTable from "./pages/admin/HotelTable";
+import RoomTable from "./pages/admin/RoomTable";
 import UserTable from "./pages/admin/UserTable";
 import Home from "./pages/home/Home";
 import Hotel from "./pages/hotel/Hotel";
@@ -17,10 +19,16 @@ function App() {
         <Route path="/" element={user?.isAdmin ? <AdminHome /> : <Home />} />
         <Route
           path="/users"
-          element={user?.isAdmin ? <UserTable /> : "<Home />"}
+          element={user?.isAdmin ? <UserTable /> : "users"}
         />
-        {/* <Route path="/" element={} /> */}
-        <Route path="/hotels" element={<List />} />
+        <Route
+          path="/hotels"
+          element={user?.isAdmin ? <HotelTable /> : <List />}
+        />
+        <Route
+          path="/rooms"
+          element={user?.isAdmin ? <RoomTable /> : "rooms"}
+        />
         <Route path="/hotels/:id" element={<Hotel />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
