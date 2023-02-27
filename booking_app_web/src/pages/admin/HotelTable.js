@@ -43,7 +43,7 @@ const HotelTable = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/${path}/`)
+    fetch(`http://localhost:8000/api/${path}`)
       .then((res) => res.json())
       .then((rowData) => setRowData(rowData));
   }, []);

@@ -17,6 +17,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import * as Yup from "yup";
 
 const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
   const { data, loading, error, reFetch } = useFetch(
@@ -33,36 +34,46 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
       rooms: [],
     },
 
-    // validationSchema: Yup.object({
-    //   username: Yup.string()
-    //     .max(15, "Must be 15 characters or less")
-    //     .required("Required"),
-    //   email: Yup.string().email("Invalid email address").required("Required"),
-    //   password: Yup.string()
-    //     .required("No password provided.")
-    //     .min(8, "Password is too short - should be 8 chars minimum."),
-    // }),
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      price: Yup.number().required("Required"),
+      maxPeople: Yup.number().required("Required"),
+      desc: Yup.string().required("Required"),
+      chooseHotel: Yup.string().required("Required"),
+      rooms: Yup.array()
+        .max(10, "Only 10 rooms are allowed")
+        .required("Provide at least one rooms"),
+    }),
 
     onSubmit: async (values, { resetForm }) => {
-      alert(JSON.stringify(values, null, 2));
-      // let a =
-      //   values.rooms.length > 0
-      //     ? console.log("values.rooms.length", values.rooms.split(" "))
-      //     : console.log("values.length", values.rooms);
+      const roomIds = values.rooms.map((r) => ({ number: Number(r) }));
+      console.log("roomIds", roomIds);
 
-      // try {
-      //   await axios
-      //     .post("http://localhost:8000/api/hotels", values)
-      //     .then((res) => {
-      //       console.log(res, "resssssssssssssssss");
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
-      //   // navigate("/login");
-      // } catch (error) {
-      //   console.log(error, "error");
-      // }
+      // alert(JSON.stringify(values, null, 2));
+
+      try {
+        await axios
+          .post(`http://localhost:8000/api/rooms/${values.chooseHotel}`, {
+            title: values.title,
+            price: values.price,
+            maxPeople: values.maxPeople,
+            desc: values.desc,
+            chooseHotel: values.chooseHotel,
+            roomNumbers: roomIds,
+          })
+          .then((res) => {
+            console.log(res, "resssssssssssssssss");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        onClose();
+        // navigate("/login");
+      } catch (error) {
+        console.log(error, "error");
+      }
     },
   });
 
@@ -86,6 +97,9 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.title}
               />
+              {formik.touched.title && formik.errors.title ? (
+                <div style={{ color: "red" }}>{formik.errors.title}</div>
+              ) : null}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Price</FormLabel>
@@ -98,6 +112,9 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.price}
               />
+              {formik.touched.price && formik.errors.price ? (
+                <div style={{ color: "red" }}>{formik.errors.price}</div>
+              ) : null}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Max People</FormLabel>
@@ -110,6 +127,9 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.maxPeople}
               />
+              {formik.touched.maxPeople && formik.errors.maxPeople ? (
+                <div style={{ color: "red" }}>{formik.errors.maxPeople}</div>
+              ) : null}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
@@ -122,8 +142,10 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.desc}
               />
+              {formik.touched.desc && formik.errors.desc ? (
+                <div style={{ color: "red" }}>{formik.errors.desc}</div>
+              ) : null}
             </FormControl>
-
             <FormControl mt={4}>
               <FormLabel>Choose a Hotel</FormLabel>
               <Select
@@ -145,6 +167,9 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                       </option>
                     ))}
               </Select>
+              {formik.touched.chooseHotel && formik.errors.chooseHotel ? (
+                <div style={{ color: "red" }}>{formik.errors.chooseHotel}</div>
+              ) : null}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Rooms</FormLabel>
@@ -153,14 +178,15 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
                 name="rooms"
                 type="text"
                 // variant="flushed"
-                onChange={(e, selected) => {
-                  // console.log("selected", selected);
-                  formik.setFieldValue("rooms", e.target.value);
+                placeholder="Enter the numbers with commas"
+                onChange={(e) => {
+                  formik.setFieldValue("rooms", e.target.value.split(","));
                 }}
                 onBlur={formik.handleBlur}
-                // value={formik.values.rooms}
-                value={formik.values.rooms}
               />
+              {formik.touched.rooms && formik.errors.rooms ? (
+                <div style={{ color: "red" }}>{formik.errors.rooms}</div>
+              ) : null}
             </FormControl>
           </ModalBody>
 

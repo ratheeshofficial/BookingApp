@@ -25,7 +25,6 @@ const CreateHotelModal = ({ isOpen, onOpen, onClose }) => {
       city: "",
       address: "",
       distance: "",
-      title: "",
       desc: "",
       cheapestPrice: "",
       featured: false,
@@ -43,7 +42,7 @@ const CreateHotelModal = ({ isOpen, onOpen, onClose }) => {
     // }),
 
     onSubmit: async (values, { resetForm }) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       try {
         await axios
           .post("http://localhost:8000/api/hotels", values)
@@ -53,7 +52,7 @@ const CreateHotelModal = ({ isOpen, onOpen, onClose }) => {
           .catch((error) => {
             console.log(error);
           });
-        // navigate("/login");
+        onClose();
       } catch (error) {
         console.log(error, "error");
       }
@@ -134,18 +133,7 @@ const CreateHotelModal = ({ isOpen, onOpen, onClose }) => {
                 value={formik.values.distance}
               />
             </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Title</FormLabel>
-              <Input
-                id="title"
-                name="title"
-                type="text"
-                variant="flushed"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.title}
-              />
-            </FormControl>
+
             <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
               <Input

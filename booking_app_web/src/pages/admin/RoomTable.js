@@ -17,13 +17,20 @@ import SidebarWithHeader from "./AdminHome";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import CreateRoomModal from "../../components/common/CreateRoomModal";
+import useFetch from "../../hooks/useFetch";
 
 const RoomTable = () => {
+  const { data, loading, error, reFetch } = useFetch(
+    `http://localhost:8000/api/hotels`
+  );
+  console.log("Hotel data", data);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   console.log("isOpen", isOpen);
 
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  console.log("pathhhhhhhhhhhhh", path);
 
   const [rowData, setRowData] = useState([]);
   console.log("rowData", rowData);
@@ -48,7 +55,7 @@ const RoomTable = () => {
       <Box h="20em">
         <Box textAlign="end">
           <Button colorScheme="whatsapp" onClick={() => onOpen()}>
-            Add Room{" "}
+            Add Room
           </Button>
         </Box>
         <TableContainer>

@@ -13,7 +13,7 @@ const router = express.Router();
 
 // CREATE
 
-router.post("/:hotelid", verifyAdmin, createRoom);
+router.post("/:hotelid", createRoom);
 
 // UPDATE
 
@@ -22,7 +22,7 @@ router.put("/availabilty/:id", updateRoomAvailabilty);
 
 // DELETE
 
-router.delete("/:id/:hotelid", verifyAdmin, deleteRoom);
+router.delete("/:id/:hotelid", deleteRoom); //verifyAdmin
 
 // GET
 

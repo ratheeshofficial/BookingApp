@@ -4,7 +4,7 @@ import Room from "../models/Room.js";
 export const createRoom = async (req, res, next) => {
   const hotelId = req.params.hotelid;
   console.log("hotelId", hotelId);
-
+  console.log("req.body", req.body);
   const newRoom = new Room(req.body);
 
   try {
