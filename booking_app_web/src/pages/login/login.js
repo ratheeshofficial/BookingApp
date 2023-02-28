@@ -2,8 +2,10 @@ import {
   Box,
   Button,
   Center,
+  color,
   Container,
   Flex,
+  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -20,6 +22,7 @@ import * as Yup from "yup";
 //   import jwt_decode from "jwt-decode";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { AuthContext } from "../../context/AuthContext";
+import LoginImage from "../../image/hotel_img.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -65,56 +68,15 @@ const Login = () => {
       } catch (error) {
         dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
       }
-
-      //   alert(JSON.stringify(values, null, 2));
-      //   axios
-      //     .post("https://blogwheel.herokuapp.com/login", values)
-      //     .then((res) => {
-      //       console.log(res, " then");
-      //       window.localStorage.setItem("token", res.data.token);
-      //       var decoded = jwt_decode(res.data.token);
-      //       console.log(decoded, "token");
-      //       if (decoded.role === "admin") {
-      //         toast({
-      //           title: "Login Successfully",
-      //           description: "We've created your account for you.",
-      //           status: "success",
-      //           duration: 2000,
-      //           isClosable: true,
-      //         });
-      //         // admin page
-      //         history("/home");
-      //       } else {
-      //         toast({
-      //           title: "Login Successfully",
-      //           description: "We've created your account for you.",
-      //           status: "success",
-      //           duration: 2000,
-      //           isClosable: true,
-      //         });
-      //         // user page
-      //         history("/home");
-      //       }
-      //       resetForm({ values: "" });
-      //     })
-      //     .catch((res) => {
-      //       console.log(res, " catch");
-      //       !res.response.data.success &&
-      //         toast({
-      //           title: "Login Failed",
-      //           description: "Entered Credentials is wrong",
-      //           status: "error",
-      //           duration: 2000,
-      //           isClosable: true,
-      //         });
-      //     });
     },
   });
 
   return (
     <>
       <SimpleGrid columns={2} spacing={0}>
-        <Box bg="#e3e3e3"></Box>
+        <Box bg="#e3e3e3">
+          <Image src={LoginImage} alt="Dan Abramov" />
+        </Box>
         <Flex h="100vh" justifyContent="center">
           <Center>
             <Container>
@@ -122,8 +84,12 @@ const Login = () => {
                 Login
               </Text>
               <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="username">Email Address</label>
+                <label htmlFor="username">Username</label>
                 <Input
+                  _autofill={{
+                    transition: "background-color 5000s ease-in-out 0s",
+                  }}
+                  my="3"
                   id="username"
                   name="username"
                   type="text"
@@ -137,6 +103,10 @@ const Login = () => {
                 <label htmlFor="username">Password</label>
                 <InputGroup>
                   <Input
+                    _autofill={{
+                      transition: "background-color 5000s ease-in-out 0s",
+                    }}
+                    my="3"
                     id="password"
                     name="password"
                     type={passwordShown ? "text" : "password"}
@@ -145,6 +115,7 @@ const Login = () => {
                     value={formik.values.password}
                   />
                   <InputRightElement
+                    mt="3"
                     children={
                       passwordShown ? (
                         <AiFillEye
@@ -188,7 +159,7 @@ const Login = () => {
                     Submit
                   </Button>
                 </Box>
-                {error && <span>{error}</span>}
+                {error && <span style={{ color: "red" }}>{error}</span>}
               </form>
             </Container>
           </Center>

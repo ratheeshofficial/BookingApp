@@ -7,6 +7,7 @@ import {
   Center,
   Container,
   Flex,
+  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -18,6 +19,7 @@ import {
 import * as Yup from "yup";
 import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import RegisterImage from "../../image/hotel_vector.jpg";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -81,47 +83,24 @@ const SignupForm = () => {
         console.log(error, "error");
       }
     },
-
-    // alert(JSON.stringify(values, null, 2));
-    //   .then((res) => {
-    //     console.log(res, "LLLLLLLLLLLLLLLLLL");
-    //     res.data.success === true &&
-    //       toast({
-    //         title: "Account created.",
-    //         description: "We've created your account for you.",
-    //         status: "success",
-    //         duration: 2000,
-    //         isClosable: true,
-    //       });
-    //     resetForm({ values: "" });
-    //     navigate("/login");
-    //   })
-    //   .catch((res) => {
-    //     console.log(res, "AAAAAAAAAAAAAAAA");
-    //     !res.response.data.success &&
-    //       toast({
-    //         title: "Email is already exist",
-    //         description: "We've Not created your account for you.",
-    //         status: "error",
-    //         duration: 2000,
-    //         isClosable: true,
-    //       });
-    //   });
   });
 
   return (
     <>
       <SimpleGrid columns={2} spacing={0}>
-        <Box bg="#e3e3e3"></Box>
+        <Box bg="#e3e3e3">
+          <Image src={RegisterImage} alt="Dan Abramov" />
+        </Box>
         <Flex justifyContent="center" h="100vh">
           <Center>
             <Container>
               <Text fontSize="3xl" textAlign="center">
-                Sign Up
+                Register
               </Text>
               <form onSubmit={formik.handleSubmit}>
                 <label htmlFor="username">First Name</label>
                 <Input
+                  my="3"
                   id="username"
                   name="username"
                   type="text"
@@ -135,6 +114,7 @@ const SignupForm = () => {
 
                 <label htmlFor="email">Email Address</label>
                 <Input
+                  my="3"
                   id="email"
                   name="email"
                   type="email"
@@ -148,6 +128,7 @@ const SignupForm = () => {
                 <label htmlFor="email">Password</label>
                 <InputGroup>
                   <Input
+                    my="3"
                     id="password"
                     name="password"
                     type={passwordShown ? "text" : "password"}
@@ -156,6 +137,7 @@ const SignupForm = () => {
                     value={formik.values.password}
                   />
                   <InputRightElement
+                    mt="3"
                     children={
                       passwordShown ? (
                         <AiFillEye

@@ -35,11 +35,15 @@ const RoomTable = () => {
   const [rowData, setRowData] = useState([]);
   console.log("rowData", rowData);
 
-  const deleteUser = async (id) => {
-    console.log("id", id);
+  const deleteUser = async (roomId) => {
+    console.log("roomId", roomId);
     try {
-      await axios.delete(`http://localhost:8000/api/${path}/${id}`);
-      setRowData(rowData.filter((item) => item._id !== id));
+      const { _id } = data.find((hotel, i) => {
+        return hotel.rooms.includes(roomId);
+      });
+
+      await axios.delete(`http://localhost:8000/api/${path}/${roomId}/${_id}`);
+      setRowData(rowData.filter((item) => item._id !== roomId));
     } catch (error) {
       console.log("error");
     }
