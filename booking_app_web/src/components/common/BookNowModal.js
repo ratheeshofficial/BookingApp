@@ -21,8 +21,9 @@ import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 
 const BookNowModal = ({ hotelId }) => {
-  // {isOpen} = props
+  console.log("hotelId", hotelId);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // console.log("isOpen", isOpen);
   const [scrollBehavior, setScrollBehavior] = useState("inside");
   const [selectedRooms, setSelectedRooms] = useState([]);
 
@@ -36,6 +37,7 @@ const BookNowModal = ({ hotelId }) => {
 
   const BookNow = () => {
     if (user) {
+      console.log("clicked", user);
       onOpen();
     } else {
       navigate("/login");
@@ -107,52 +109,48 @@ const BookNowModal = ({ hotelId }) => {
       <Button colorScheme="linkedin" mt={3} ref={btnRef} onClick={BookNow}>
         Reserve or Book Now
       </Button>
-      {data &&
-        data.map((item) => (
-          <>
-            <Modal
-              onClose={onClose}
-              size="xl"
-              finalFocusRef={btnRef}
-              isOpen={isOpen}
-              scrollBehavior={scrollBehavior}
-            >
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Select your rooms:</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  {data.map((item) => (
-                    <SimpleGrid columns={2} spacing={10}>
-                      <Box my="3">
-                        <Text fontWeight="bold">{item.title}</Text>
-                        <Text>Desc : {item.desc}</Text>
-                        <Text>price : {item.price}</Text>
-                        <Text>maxPeople : {item.maxPeople}</Text>
-                      </Box>
-                      <Box alignSelf="center">
-                        {item.roomNumbers.map((roomNumber) => (
-                          <Checkbox
-                            ml="2"
-                            colorScheme="green"
-                            value={roomNumber._id}
-                            onChange={handleSelect}
-                            disabled={!isAvailable(roomNumber)}
-                          >
-                            {roomNumber.number}
-                          </Checkbox>
-                        ))}
-                      </Box>
-                    </SimpleGrid>
+
+      <Modal
+        onClose={onClose}
+        size="xl"
+        finalFocusRef={btnRef}
+        isOpen={isOpen}
+        scrollBehavior={scrollBehavior}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Select your rooms:</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {data?.map((item) => (
+              <SimpleGrid columns={2} spacing={10}>
+                <Box my="3">
+                  <Text fontWeight="bold">{item?.title}</Text>
+                  <Text>Desc : {item?.desc}</Text>
+                  <Text>price : {item?.price}</Text>
+                  <Text>maxPeople : {item?.maxPeople}</Text>
+                </Box>
+                <Box alignSelf="center">
+                  {item.roomNumbers.map((roomNumber) => (
+                    <Checkbox
+                      ml="2"
+                      colorScheme="green"
+                      value={roomNumber._id}
+                      onChange={handleSelect}
+                      disabled={!isAvailable(roomNumber)}
+                    >
+                      {roomNumber.number}
+                    </Checkbox>
                   ))}
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={handleClick}>Reserve Now</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </>
-        ))}
+                </Box>
+              </SimpleGrid>
+            ))}
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={handleClick}>Reserve Now</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

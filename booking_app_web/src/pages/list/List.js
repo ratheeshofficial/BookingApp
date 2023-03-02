@@ -13,6 +13,7 @@ const List = () => {
   const location = useLocation();
   console.log("location", location);
   const [destination, setDestination] = useState(location.state.destination);
+  console.log("destination", destination);
   const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
@@ -21,7 +22,7 @@ const List = () => {
 
   const { data, loading, error, reFetch } = useFetch(
     `http://localhost:8000/api/hotels?city=${destination}&min=${min || 0}&max=${
-      max || 999
+      max || 300000
     }`
   );
   console.log("data", data);

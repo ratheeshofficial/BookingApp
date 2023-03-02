@@ -38,14 +38,16 @@ const RoomTable = () => {
   const deleteUser = async (roomId) => {
     console.log("roomId", roomId);
     try {
-      const { _id } = data.find((hotel, i) => {
+      const hotelId = data.find((hotel, i) => {
         return hotel.rooms.includes(roomId);
       });
-
-      await axios.delete(`http://localhost:8000/api/${path}/${roomId}/${_id}`);
+      console.log("hotelId", hotelId);
+      await axios.delete(
+        `http://localhost:8000/api/${path}/${roomId}/${hotelId._id}`
+      );
       setRowData(rowData.filter((item) => item._id !== roomId));
     } catch (error) {
-      console.log("error");
+      console.log("error", error.message);
     }
   };
 

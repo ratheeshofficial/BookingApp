@@ -36,12 +36,12 @@ const CreateRoomModal = ({ isOpen, onOpen, onClose }) => {
 
     validationSchema: Yup.object({
       title: Yup.string()
-        .max(15, "Must be 15 characters or less")
+        .max(30, "Must be 30 characters or less")
         .required("Required"),
       price: Yup.number().required("Required"),
       maxPeople: Yup.number().required("Required"),
       desc: Yup.string().required("Required"),
-      chooseHotel: Yup.string().required("Required"),
+      // chooseHotel: Yup.string().required("Required"),
       rooms: Yup.array()
         .max(10, "Only 10 rooms are allowed")
         .required("Provide at least one rooms"),
